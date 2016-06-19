@@ -1,0 +1,25 @@
+extends layout
+
+block content
+	br
+	br
+	blockquote
+		h3.flow-text Welcome to S3 piper, an incredibly simple and lightweight image compression tool.
+		h3.flow-text Choose an image to upload, type in the name of the S3 bucket you'd like to upload to and hit submit!
+		h3.flow-text It takes care of the rest! Your file is compressed into multiple scaled down formats and pushed to Amazon S3.
+	br
+	br
+	blockquote
+		form#upload(action="/upload" method="post" enctype="multipart/form-data")
+			.row
+				.input-field.col.s6
+					input#bucket(type="text", name="bucket", placeholder="Bucket on Amazon S3 to upload to (must already exist)")
+			.row
+				.file-field.input-field.col.s9
+					.btn
+						span File
+						input#upl(type="file",name="upl")
+					.file-path-wrapper
+						input.file-path.validate(type="text")
+			.row.center-align
+				input#submit.waves-effect.waves-blue.btn-large(type="submit")

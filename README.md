@@ -1,11 +1,18 @@
 # S3Piper
 
-### A lightweight Node.js tool to upload, compress and push images to Amazon S3.
+###
 
-Made using Kraken's awesome image compression API. In order to get started, include a **configs** folder in the root directory,
+#### What is S3Piper?
+A lightweight Node.js tool to upload, compress and push images to Amazon S3. It is made using Kraken's awesome image compression API.
+
+![alt text](https://raw.githubusercontent.com/shivtools/S3Piper/master/markdown/home.png "Sneak peek!")
+
+#### Get started
+
+* In order to get started, include a **configs** folder in the root directory,
 along with a **config.json** file.
 
-Your **config.json** file should look like this: 
+* Your **config.json** file should look like this:
 
 ```json
 {
@@ -20,6 +27,6 @@ Your **config.json** file should look like this:
 
 Example of S3-region would be: us-west-2.
 
-You **must** already have a bucket ready in S3 and paste its filename into the input filed that asks for your S3 bucket name. In order to modify the compression sizes, simply modify the index.js file. Here's more on [Kraken's documentation](https://kraken.io/docs/upload-url) (look under direct upload). 
+* You **must** already have a bucket ready in S3 and paste its filename into the input filed that asks for your S3 bucket name. In order to modify the compression sizes, simply modify the index.js file. Here's more on [Kraken's documentation](https://kraken.io/docs/upload-url) (look under direct upload).
 
 Feel free to get in touch with me regarding any questions or to add more functionality to this tool!

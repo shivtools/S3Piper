@@ -9,6 +9,12 @@ A lightweight Node.js tool to upload, compress and push images to Amazon S3. It 
 
 #### Get started
 
+* The app runs on port 5000. After starting the following command, navigate to localhost:5000 in your browser.
+
+```
+npm start
+```
+
 * In order to get started, include a **configs** folder in the root directory,
 along with a **config.json** file.
 

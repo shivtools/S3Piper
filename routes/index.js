@@ -17,11 +17,30 @@ router.get('/', function (req, res, next) {
     });
 });
 
+
 router.post('/upload', multer({
     dest: './uploads/'
 }).single('upl'), function (req, res, next) {
 
-    console.log(req.body.bucket);
+    var body = req.body;
+    var options = [];
+
+    for (var i = 1; i <= 5; i++) {
+
+      //JSON object which will contain specs for given image
+      var json = {};
+
+      //Check to see if width and height fields are set
+      if(body['height'+i] && body['width'+i]){
+        json.id = i;
+        json.width = body['width'+i];
+        json.height = body['height'+i];
+        json.strategy = (body['fit'+i]) ? 'fit': 'crop'; //Set strategy to either fit or crop
+        json.storage_path = body['path'+i] + req.file.originalname; //Set path for image
+        options.push(json); //Push to options array
+        console.log(json);
+      }
+    }
 
     var params = {
         file: req.file.destination + req.file.filename,
@@ -32,34 +51,18 @@ router.post('/upload', multer({
             bucket: req.body.bucket,
             region: config.S3_REGION
         },
-        resize: [{
-            id: "1",
-            strategy: "fit",
-            width: 100,
-            height: 100,
-            storage_path: "images/100x100/" + req.file.originalname
-        }, {
-            id: "2",
-            strategy: "crop",
-            width: 300,
-            height: 300,
-            storage_path: "images/300x300/" + req.file.originalname
-        }, {
-            id: "3",
-            strategy: "square",
-            size: 400,
-            storage_path: "images/400x400/" + req.file.originalname
-        }],
-        webp: true,
-        lossy: true
+        resize: options
     };
 
+    params.lossy = (body['lossless']) ? false : true; //Lossless compression turned on i.e lossy = false
+    params.webp = (body['webp']) ? true: false;
+    console.log(params);
     kraken.upload(params, function (status) {
         if (status.success) {
-            res.status(200).send('Image successfully uploaded :)!');
+            res.render('status', {title: 'Success!', message: 'Your image was successfully uploaded to S3!'});
             console.log('Success. Optimized image URL: %s', status.kraked_url);
         } else {
-            res.status(500).send('Sorry, your image could not be uploaded: ', status.message);
+            res.render('status', {title: 'Failed!', message: 'Could not upload your image to S3, sorry! ' + status.message});
             console.log('Fail. Error message: %s', status.message);
         }
     });

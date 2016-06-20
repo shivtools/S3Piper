@@ -14,12 +14,40 @@ block content
 			.row
 				.input-field.col.s6
 					input#bucket(type="text", name="bucket", placeholder="Bucket on Amazon S3 to upload to (must already exist)")
+			br
+			h4.flow-text Image specifications
+			//- Image specifications for 5 images.
+			ul.collection
+				each val in [1,2,3,4,5]
+					li.collection-item.row
+						p.col.s2
+							input(type="text" id='height' + val, name="height"+val)
+							label(for='height' + val) Image Height (px)
+						p.col.s2
+							input(type="text" id='width' + val, name="width"+val)
+							label(for="width" + val) Image Width (px)
+						p.col.s2
+							input(type="text" id='path' + val, name="path"+val)
+							label(for="path" + val) File path (example: images/100x100/)	
+						p.col.s2
+							input(type="checkbox" id='fit' + val, name='fit' + val)
+							label(for="fit" + val) Fit
+						p.col.s2
+							input(type="checkbox" id='crop' + val, name='crop' + val)
+							label(for="crop" + val) Crop
+			.row
+				p.col.s3
+					input(type="checkbox" id='lossless' name='lossless')
+					label(for="lossless") Lossless
+				p.col.s3
+					input(type="checkbox" id='webp', name='webp')
+					label(for="webp") Webp format
 			.row
 				.file-field.input-field.col.s9
-					.btn
+					.btn.orange
 						span File
 						input#upl(type="file",name="upl")
 					.file-path-wrapper
 						input.file-path.validate(type="text")
 			.row.center-align
-				input#submit.waves-effect.waves-blue.btn-large(type="submit")
+				input#submit.waves-effect.waves-blue.btn-large.red(type="submit")
